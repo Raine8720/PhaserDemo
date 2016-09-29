@@ -1,15 +1,39 @@
-var demo = {};
+var demo = {}, centerX = 1500/2, centerY = 1000/2, sonic, speed = 4;
+
 demo.state0 = function () {};
 demo.state0.prototype = {
-    preload: function () {},
+    preload: function () {
+        game.load.image('sonic','assets/sprites/sonicRunCell.png');
+    },
     create: function () {
         game.stage.backgroundColor = '#0099ff';
         console.log('state0');
-        
         addChangeStateEventListeners();
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        
+        sonic = game.add.sprite(centerX , centerY, 'sonic');
+        sonic.anchor.x = 0.5;
+        sonic.anchor.y = 0.5;
+        //
+        //or written using
+        //sonic.anchor.setTo(0.5,0.5);
+        
         
     },
-    update: function () {}
+    update: function () {
+        if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+            sonic.x +=speed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+            sonic.x -=speed;
+        }
+        if(game.input.keyboard.isDown(Phaser.Keyboard.DOWN)){
+            sonic.y +=speed;
+        }
+        else if(game.input.keyboard.isDown(Phaser.Keyboard.UP)){
+            sonic.y -=speed;
+        }
+    }
 };
 
 function changeState(i, stateNum){
